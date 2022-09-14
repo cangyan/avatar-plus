@@ -1,5 +1,6 @@
-from app.base.config import getProjectKey, settings
 from deta import Deta
+
+from app.base.config import getProjectKey, settings
 
 deta = Deta(getProjectKey())
 

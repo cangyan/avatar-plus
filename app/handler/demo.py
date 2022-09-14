@@ -1,9 +1,10 @@
 from pprint import pprint
 from typing import Any
 
-from app.event.demo import DemoEvents
 from fastapi_events.handlers.local import local_handler
 from fastapi_events.typing import Event
+
+from app.event.demo import DemoEvents
 
 
 @local_handler.register(event_name=DemoEvents.GET_CONFIG)  # type: ignore

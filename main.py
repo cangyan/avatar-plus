@@ -17,7 +17,7 @@ app = FastAPI(
 )
 
 
-app.add_middleware(DebugApiMiddleware)
+# app.add_middleware(DebugApiMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

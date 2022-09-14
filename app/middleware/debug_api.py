@@ -1,13 +1,14 @@
 import json
 import re
 
-from app.base.logger import logger
 from fastapi.encoders import jsonable_encoder
 from starlette.concurrency import iterate_in_threadpool
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
 from starlette.requests import Request
 from starlette.responses import Response
 from starlette.types import ASGIApp, Message
+
+from app.base.logger import logger
 
 routes_without_middleware = ["/download/*"]
 
@@ -24,7 +25,9 @@ class DebugApiMiddleware(BaseHTTPMiddleware):
 
         request._receive = receive
 
-    async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
+    async def dispatch(
+        self, request: Request, call_next: RequestResponseEndpoint
+    ) -> Response:
         isExcludeRouter = False
 
         for path in routes_without_middleware:
