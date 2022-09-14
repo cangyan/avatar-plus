@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "avatar plus"
+version = "0.1.0"
+description = ""
+authors = ["cangyan <me.wmf@foxmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "^0.81.0"
+uvicorn = "^0.18.3"
+pydantic = "^1.10.1"
+python-dotenv = "^0.20.0"
+fastapi-events = "^0.5.1"
+deta = "^1.1.0"
+python-multipart = "^0.0.5"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^0.971"
+black = "^22.8.0"
+isort = "^5.10.1"
+autoflake = "^1.5.3"
+flake8 = "^5.0.4"
+pytest = "^7.1.2"
+pylint = "^2.15.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+start = "main:start"

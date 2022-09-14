@@ -1,0 +1,6 @@
+PROJECT_NAME=avatar plus
+PROJECT_KEY=
+SERVICE_NAME=avatar-plus
+LOG_FILE=/tmp/avatar-plus.log
+LOG_LEVEL=debug
+TIMEOUT=10
