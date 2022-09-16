@@ -1,0 +1,22 @@
+<xml>
+    <ToUserName>
+        <![CDATA[gh_4df9100e0c3f]]>
+    </ToUserName>
+
+    <FromUserName>
+        <![CDATA[oFaEE5yboKpp16LKpnXIu1pwIaUc]]>
+    </FromUserName>
+
+    <CreateTime>1660723671</CreateTime>
+
+    <MsgType>
+        <![CDATA[text]]>
+    </MsgType>
+
+    <Content>
+        <![CDATA[测试消息]]>
+    </Content>
+
+    <MsgId>23775844434186594</MsgId>
+
+</xml>

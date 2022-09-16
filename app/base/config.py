@@ -10,13 +10,15 @@ class Settings(BaseSettings):
     LOG_FILE: str = "/tmp/app.log"
     LOG_LEVEL: str = "debug"
     TIMEOUT: int = 10
+    WECHAT_APP_ID: str
+    WECHAT_SECRET: str
 
     class Config:
         env_file = ".env"
         case_sensitive = True
 
 
-settings = Settings()
+settings = Settings()  # type: ignore
 
 
 def getProjectKey() -> str:

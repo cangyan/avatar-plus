@@ -10,13 +10,17 @@ from app.utils.time_layout import getFilePrefix
 router = APIRouter()
 
 
-@router.post("/add_record", response_model=RestfulResponse, include_in_schema=False)
+@router.post(
+    "/add_record", response_model=RestfulResponse, include_in_schema=True
+)
 def add_record(key: str, value: str) -> RestfulResponse:
     db.put(value, key=key, expire_in=300)
     return RestfulResponse(data={})
 
 
-@router.post("/get_record", response_model=RestfulResponse, include_in_schema=False)
+@router.post(
+    "/get_record", response_model=RestfulResponse, include_in_schema=True
+)
 def get_record(key: str) -> RestfulResponse:
     ret = db.get(key)
     return RestfulResponse(data={"key": key, "value": ret})

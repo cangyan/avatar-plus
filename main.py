@@ -6,6 +6,7 @@ from starlette.middleware.cors import CORSMiddleware
 from app.api.api_v1.api import router
 from app.api.app.api import router as app_router
 from app.api.common.api import router as common_router
+from app.api.wechat.api import router as wechat_router
 from app.base.config import settings
 from app.handler.demo import *
 from app.middleware.debug_api import DebugApiMiddleware
@@ -32,3 +33,4 @@ app.add_middleware(TimeoutMiddleware, timeout=settings.TIMEOUT)
 app.include_router(router, prefix=settings.API_V1_STR)
 app.include_router(common_router)
 app.include_router(app_router, tags=["app"])
+app.include_router(wechat_router, prefix="/wechat", tags=["app"])
