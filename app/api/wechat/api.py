@@ -1,9 +1,17 @@
+import urllib.request
+
 from app.base.logger import logger
-from app.core.wechat.service import getAuthLink, getUserAvatar, isUserAuthed
+from app.core.image.service import mergeImage
+from app.core.wechat.service import (
+    getAuthLink,
+    getUserAvatar,
+    isUserAuthed,
+    uploadAvatar,
+)
 from fastapi import APIRouter, Request
 from fastapi.responses import PlainTextResponse, Response
 from wechatpy import parse_message
-from wechatpy.replies import TextReply
+from wechatpy.replies import ImageReply, TextReply
 
 router = APIRouter()
 
@@ -52,11 +60,20 @@ async def post_message(request: Request) -> Response:
                 return Response(
                     content=reply.__str__(), media_type="application/xml"
                 )
+
             logger.debug(avatar_link)
             # 合成头像
+            req = urllib.request.urlopen(avatar_link)
+            base64Img = mergeImage(req.read())
             # 上传临时素材
+            media_id = uploadAvatar(base64Img)
             # 回复
-        # reply = TextReply(content="输入'国庆快乐'可生成头像", message=msg)
-        # return Response(content=reply.__str__(), media_type="application/xml")
+            reply = ImageReply(media_id=media_id, message=msg)
+            return Response(
+                content=reply.__str__(), media_type="application/xml"
+            )
+
+        reply = TextReply(content="输入'国庆快乐'可生成头像", message=msg)
+        return Response(content=reply.__str__(), media_type="application/xml")
     # 默认
     return Response()

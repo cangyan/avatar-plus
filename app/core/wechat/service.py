@@ -1,3 +1,4 @@
+import base64
 import json
 import urllib.parse
 
@@ -5,6 +6,7 @@ import requests
 from app.base.config import settings
 from app.base.logger import logger
 from wechatpy.client import WeChatClient
+from wechatpy.client.api.media import WeChatMedia
 from wechatpy.session import SessionStorage
 
 
@@ -17,7 +19,7 @@ class CustomStorage(SessionStorage):
         return self.cache.get(key, None)
 
     def set(self, key, value, ttl=None):
-        # print("set_key", key, value)
+        print("set_key", key, value)
         self.cache[key] = value
         return
 
@@ -106,5 +108,12 @@ def getUserAvatar(user: str) -> tuple:
     return ("/".join(x), "")
 
 
-def uploadAvatar(image: str) -> str:
-    return ""  # media_id
+def uploadAvatar(image: bytes) -> str:
+    response = wechat_client.media.upload(
+        "image",
+        ("avatar.png", base64.b64decode(image), "application/octet-stream"),
+    )
+
+    logger.debug(response)
+
+    return response.get("media_id", "")  # media_id
