@@ -81,8 +81,29 @@ def delUserAccessToken(user: str) -> None:
     return storage.delete(user)
 
 
-def getUserAvatar(user: str) -> str:
-    return ""  # base64
+def getUserAvatar(user: str) -> tuple:
+    at = storage.get(user, "")
+    if at == "":
+        return ("", "需要授权")
+
+    url = "https://api.weixin.qq.com/sns/userinfo?access_token={}&openid={}&lang=zh_CN".format(
+        at, user
+    )
+
+    response = requests.request("GET", url)
+
+    ret = json.loads(response.text)
+    logger.debug(ret)
+    ret_code = ret.get("errcode", 0)
+    if ret_code != 0:
+        logger.error(ret)
+        return ("", ret.get("errmsg"))
+
+    avatar_link = ret.get("headimgurl")
+    x = avatar_link.split("/")
+    x[len(x) - 1] = "0"
+
+    return ("/".join(x), "")
 
 
 def uploadAvatar(image: str) -> str:

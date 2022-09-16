@@ -1,5 +1,5 @@
 from app.base.logger import logger
-from app.core.wechat.service import getAuthLink, isUserAuthed
+from app.core.wechat.service import getAuthLink, getUserAvatar, isUserAuthed
 from fastapi import APIRouter, Request
 from fastapi.responses import PlainTextResponse, Response
 from wechatpy import parse_message
@@ -45,7 +45,18 @@ async def post_message(request: Request) -> Response:
                     content=reply.__str__(), media_type="application/xml"
                 )
 
-        reply = TextReply(content="输入'国庆快乐'可生成头像", message=msg)
-        return Response(content=reply.__str__(), media_type="application/xml")
+            # 获取用户头像
+            avatar_link, errmsg = getUserAvatar(str(msg.source))
+            if errmsg != "":
+                reply = TextReply(content=errmsg, message=msg)
+                return Response(
+                    content=reply.__str__(), media_type="application/xml"
+                )
+            logger.debug(avatar_link)
+            # 合成头像
+            # 上传临时素材
+            # 回复
+        # reply = TextReply(content="输入'国庆快乐'可生成头像", message=msg)
+        # return Response(content=reply.__str__(), media_type="application/xml")
     # 默认
     return Response()
