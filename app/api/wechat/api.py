@@ -1,6 +1,3 @@
-import xml.etree.ElementTree as ET
-from email import message
-
 from app.base.logger import logger
 from app.core.wechat.service import getAuthLink, isUserAuthed
 from fastapi import APIRouter, Request

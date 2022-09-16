@@ -1,6 +1,9 @@
+import json
 import urllib.parse
 
+import requests
 from app.base.config import settings
+from app.base.logger import logger
 from wechatpy.client import WeChatClient
 from wechatpy.session import SessionStorage
 
@@ -42,6 +45,24 @@ def getAuthLink() -> str:
 
     q = urllib.parse.urlencode(params)
     return url + "?" + q + "#wechat_redirect"
+
+
+def userAuth(code: str) -> str:
+    url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid={}&secret={}&code={}&grant_type=authorization_code".format(
+        settings.WECHAT_APP_ID, settings.WECHAT_SECRET, code
+    )
+
+    response = requests.request("GET", url)
+
+    ret = json.loads(response.text)
+
+    ret_code = ret.get("errcode", 0)
+    if ret_code != 0:
+        return ret.get("errmsg")
+    storage.set(ret.get("openid"), ret.get("access_token"))
+
+    logger.info("{}设置token成功".format(ret.get("openid")))
+    return ""
 
 
 def isUserAuthed(user: str) -> bool:
