@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     TIMEOUT: int = 10
     WECHAT_APP_ID: str
     WECHAT_SECRET: str
+    WECHAT_REDIRECT_URI: str
 
     class Config:
         env_file = ".env"

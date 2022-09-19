@@ -39,7 +39,7 @@ def getAuthLink() -> str:
     url = "https://open.weixin.qq.com/connect/oauth2/authorize"
     params = {
         "appId": settings.WECHAT_APP_ID,
-        "redirect_uri": "http://deta.ngrok.huuinn.com/web/wechat_auth",
+        "redirect_uri": settings.WECHAT_REDIRECT_URI,
         "response_type": "code",
         "scope": "snsapi_userinfo",
         "state": "STATE",
