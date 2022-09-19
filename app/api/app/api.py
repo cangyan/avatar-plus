@@ -11,7 +11,7 @@ router = APIRouter()
 
 
 @router.post(
-    "/add_record", response_model=RestfulResponse, include_in_schema=True
+    "/add_record", response_model=RestfulResponse, include_in_schema=False
 )
 def add_record(key: str, value: str) -> RestfulResponse:
     db.put(value, key=key, expire_in=300)
@@ -19,7 +19,7 @@ def add_record(key: str, value: str) -> RestfulResponse:
 
 
 @router.post(
-    "/get_record", response_model=RestfulResponse, include_in_schema=True
+    "/get_record", response_model=RestfulResponse, include_in_schema=False
 )
 def get_record(key: str) -> RestfulResponse:
     ret = db.get(key)

@@ -5,7 +5,7 @@ from fastapi import APIRouter
 router = APIRouter()
 
 
-@router.get("/wechat_auth")
+@router.get("/wechat_auth", include_in_schema=False)
 def wechat_auth(code: str) -> RestfulResponse:
     if code == "":
         return RestfulResponse(code=-1, msg="code不能为空", data={})
