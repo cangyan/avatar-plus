@@ -4,3 +4,6 @@ SERVICE_NAME=avatar-plus
 LOG_FILE=/tmp/avatar-plus.log
 LOG_LEVEL=debug
 TIMEOUT=10
+
+WECHAT_APP_ID=
+WECHAT_SECRET=
